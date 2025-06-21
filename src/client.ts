@@ -50,8 +50,10 @@ global.embeds = {
 };
 
 global.ChannelIDs = {
-  deadlineAnnouncements: "735894843259355294"
+  deadlineAnnouncements: "735894843259355294",
+  landSubmissions: "1089647073852403802",
 };
+
 global.mainServer = "735894836577697913";
 
 //// END OF CONFIGURATION ////

@@ -23,7 +23,6 @@ const TRELLO_TOKEN = process.env.TRELLO_TOKEN;
 const ADDON = `?key=${TRELLO_KEY}&token=${TRELLO_TOKEN}`
 
 const Settings = {
-  ChannelId: "1089647073852403802", // Channel ID for incoming requests
   AreaListIds: {
     // Default Cities
     "Redwood": ["641e1077958b7e7aeb847a48"],
@@ -191,7 +190,7 @@ export class ModalHandler extends InteractionHandler {
     const row = new ActionRowBuilder<ButtonBuilder>().addComponents(incomingRequestButton);
 
     // Send the content to the channel
-    const channel = await interaction.client.channels.fetch(Settings.ChannelId) as TextChannel;
+    const channel = await interaction.client.channels.fetch(global.ChannelIDs.landSubmissions) as TextChannel;
     channel.send({ content: DistrictManager, embeds: [newEmbed], components: [row] });
 
     // Client returner
