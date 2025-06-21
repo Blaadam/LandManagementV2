@@ -4,7 +4,7 @@ import { ApplyOptions } from "@sapphire/decorators";
 
 @ApplyOptions<Command.Options>({
   name: "ping",
-  description: "Get response time in milliseconds of Discord API.",
+  description: "Check the bot's latency",
   cooldownDelay: 2_000,
 })
 export default class PingCommand extends Command {
