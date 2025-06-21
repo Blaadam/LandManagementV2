@@ -9,9 +9,9 @@ datasource db {
 }
 
 model ManagerTable {
-  Id                                            Int       @id @default(autoincrement())
-  TrelloId                                      String    @db.VarChar(50)
-  DiscordId                                     BigInt    
-  District                                      String    @db.VarChar(25)
-  AssignedAt                                    DateTime? @db.DateTime(0)
+  Id         Int       @id @default(autoincrement())
+  DiscordId  BigInt
+  District   String    @db.VarChar(25)
+  AssignedAt DateTime? @db.DateTime(0)
+  TrelloId   String    @db.VarChar(50)
 }

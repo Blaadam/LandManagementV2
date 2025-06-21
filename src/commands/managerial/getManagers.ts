@@ -37,11 +37,18 @@ export default class ViewHistoryCommand extends Command {
       command
         .setName(this.name)
         .setDescription(this.description)
-
         .addStringOption(option =>
-          option.setName('district')
-            .setDescription('The you want to view the managers for')
-            .setRequired(true));
+          option
+            .setName('district')
+            .setDescription('The district you want to view the managers for')
+            .setRequired(true)
+            .addChoices(
+              { name: 'Redwood', value: 'Redwood' },
+              { name: 'Arborfield', value: 'Arborfield' },
+              { name: 'Prominence', value: 'Prominence' },
+              { name: 'Unincorporated Areas', value: 'Unincorporated Areas' }
+            )
+        );
     }, {
       guildIds: [],
     });
@@ -49,7 +56,7 @@ export default class ViewHistoryCommand extends Command {
 
   public async chatInputRun(interaction: ChatInputCommandInteraction) {
     await interaction.deferReply({ ephemeral: true });
-    
+
     const district = interaction.options.getString("district", true);
 
     try {

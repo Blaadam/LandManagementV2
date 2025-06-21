@@ -31,6 +31,7 @@ async function AddManagerToDistrict(
       DiscordId: managerId,
       District: district,
       TrelloId: trelloId,
+      AssignedAt: new Date(),
     },
   });
 
@@ -51,7 +52,6 @@ export default class ViewHistoryCommand extends Command {
         .setName(this.name)
         .setDescription(this.description)
 
-
         .addUserOption(option =>
           option
             .setName('manager')
@@ -59,9 +59,17 @@ export default class ViewHistoryCommand extends Command {
             .setRequired(true))
 
         .addStringOption(option =>
-          option.setName('district')
-            .setDescription('The district they will serve in')
-            .setRequired(true))
+          option
+            .setName('district')
+            .setDescription('The district you want to view the managers for')
+            .setRequired(true)
+            .addChoices(
+              { name: 'Redwood', value: 'Redwood' },
+              { name: 'Arborfield', value: 'Arborfield' },
+              { name: 'Prominence', value: 'Prominence' },
+              { name: 'Unincorporated Areas', value: 'Unincorporated Areas' }
+            )
+        )
 
         .addStringOption(option =>
           option.setName('trello')

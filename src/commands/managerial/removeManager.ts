@@ -11,8 +11,7 @@ const connection = new databaseConnection();
 
 async function RemoveManagerFromDistrict(
   managerId: bigint,
-  district: string,
-  trelloId: string
+  district: string
 ) {
   var table = connection.prisma.managerTable;
 
@@ -25,7 +24,7 @@ async function RemoveManagerFromDistrict(
   }
 
   await table.delete({ where: { Id: existingManager.Id } });
-  return `Manager <@${managerId}> has been successfully removed from district ${district} with Trello ID ${trelloId}.`;
+  return `Manager <@${managerId}> has been successfully removed from district ${district}.`;
 }
 
 @ApplyOptions<Command.Options>({
@@ -42,7 +41,6 @@ export default class ViewHistoryCommand extends Command {
         .setName(this.name)
         .setDescription(this.description)
 
-
         .addUserOption(option =>
           option
             .setName('manager')
@@ -50,14 +48,17 @@ export default class ViewHistoryCommand extends Command {
             .setRequired(true))
 
         .addStringOption(option =>
-          option.setName('district')
-            .setDescription('The district they will serve in')
-            .setRequired(true))
-
-        .addStringOption(option =>
-          option.setName('trello')
-            .setDescription('Their unique TrelloID')
-            .setRequired(true))
+          option
+            .setName('district')
+            .setDescription('The district you want to view the managers for')
+            .setRequired(true)
+            .addChoices(
+              { name: 'Redwood', value: 'Redwood' },
+              { name: 'Arborfield', value: 'Arborfield' },
+              { name: 'Prominence', value: 'Prominence' },
+              { name: 'Unincorporated Areas', value: 'Unincorporated Areas' }
+            )
+        )
 
         .setDefaultMemberPermissions(PermissionFlagsBits.ManageRoles);
     });
@@ -68,15 +69,13 @@ export default class ViewHistoryCommand extends Command {
 
     const manager = interaction.options.getUser("manager", true)
     const district = interaction.options.getString("district", true)
-    const trelloID = interaction.options.getString("trello", true)
 
     let response: string;
     try {
       try {
         response = await RemoveManagerFromDistrict(
           BigInt(manager.id),
-          district,
-          trelloID
+          district
         );
       } catch (err) {
         console.error("Error fetching moderation history:", err);
