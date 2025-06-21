@@ -23,15 +23,14 @@ export default class ViewHistoryCommand extends Command {
             command
                 .setName(this.name)
                 .setDescription(this.description)
-                // ;
                 .setDefaultMemberPermissions(PermissionFlagsBits.Administrator);
         });
     }
 
     public async chatInputRun(interaction: ChatInputCommandInteraction) {
-        if (interaction.user.id != "251442524516909058") {
-            return interaction.reply("Nuh uh")
-        }
+        // if (interaction.user.id != "251442524516909058") {
+        //     return interaction.reply("Nuh uh")
+        // }
 
         const newEmbed = new EmbedBuilder()
             .setAuthor({
