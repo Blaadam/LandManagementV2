@@ -1,0 +1,17 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model ManagerTable {
+  Id                                            Int       @id @default(autoincrement())
+  TrelloId                                      String    @db.VarChar(50)
+  DiscordId                                     BigInt    
+  District                                      String    @db.VarChar(25)
+  AssignedAt                                    DateTime? @db.DateTime(0)
+}
