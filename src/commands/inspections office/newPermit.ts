@@ -8,8 +8,8 @@ import {
 import { ApplyOptions } from "@sapphire/decorators";
 
 @ApplyOptions<Command.Options>({
-  name: "get-managers",
-  description: "Get the list of managers for a specific district",
+  name: "new-permit",
+  description: "Sends a message that an individual passed their Business Permit Application",
   cooldownDelay: 5_000,
 })
 export default class ViewHistoryCommand extends Command {
@@ -20,8 +20,6 @@ export default class ViewHistoryCommand extends Command {
       command
         .setName(this.name)
         .setDescription(this.description)
-        .setName('new-permit')
-        .setDescription('Sends a message that an individaul passed their Business Permit Application')
         .addUserOption(option =>
           option.setName('user')
             .setDescription('The name of person who passed the application')
@@ -30,8 +28,7 @@ export default class ViewHistoryCommand extends Command {
           option.setName('permit')
             .setDescription('The link to permit on docm permit trello board')
             .setRequired(true))
-        ;
-      // .setDefaultMemberPermissions(PermissionFlagsBits.ManageMessages);
+      .setDefaultMemberPermissions(PermissionFlagsBits.ManageMessages);
     });
   }
 
