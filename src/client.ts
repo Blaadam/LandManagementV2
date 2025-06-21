@@ -37,6 +37,7 @@ export default class Client extends SapphireClient {
 global.embeds = {
   embedColors: {
     mgmt: "#6c584b",
+    activity: "#9E9885",
     default: "#002ea2",
     error: "#ff0000",
     success: "#00ff00",
@@ -48,7 +49,9 @@ global.embeds = {
   },
 };
 
-global.ChannelIDs = {};
+global.ChannelIDs = {
+  deadlineAnnouncements: "735894843259355294"
+};
 global.mainServer = "735894836577697913";
 
 //// END OF CONFIGURATION ////
