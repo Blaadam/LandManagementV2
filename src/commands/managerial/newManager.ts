@@ -1,6 +1,5 @@
 import { Command, ApplicationCommandRegistry } from "@sapphire/framework";
 import {
-  EmbedBuilder,
   PermissionFlagsBits,
   type ChatInputCommandInteraction,
 } from "discord.js";

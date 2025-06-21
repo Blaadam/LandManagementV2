@@ -1,12 +1,7 @@
 import { Command, ApplicationCommandRegistry } from "@sapphire/framework";
 import {
     ActionRowBuilder,
-    ButtonBuilder,
-    ButtonStyle,
-    EmbedBuilder,
     ModalBuilder,
-    PermissionFlagsBits,
-    TextChannel,
     TextInputBuilder,
     TextInputStyle,
     type ChatInputCommandInteraction,
