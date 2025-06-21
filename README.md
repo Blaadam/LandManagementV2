@@ -37,6 +37,12 @@ Generate the prisma client
 npx prisma generate
 ```
 
+If you want to push to a database, you migrate the database
+
+```ps1
+npx prisma migrate dev --name "NAME HERE"
+```
+
 Ensure that a `.env` file exists, with the following data:
 
 ```ini
