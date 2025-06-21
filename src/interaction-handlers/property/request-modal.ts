@@ -78,19 +78,6 @@ async function GetManagersFromDistrict(district: string) {
   return rows;
 }
 
-function AutoCorrectDistrictInput(Input) {
-  var Capitalised = Input.toUpperCase()
-
-  if (Capitalised == "REDWOOD") { return "Redwood" }
-  else if (Capitalised == "ARBORFIELD") { return "Arborfield" }
-  else if (Capitalised == "PROMINENCE") { return "Prominence" }
-  else if (Capitalised == "UNINCORPORATED") { return "Unincorporated" }
-
-  else if (Capitalised == "FARMS") { return "Unincorporated" }
-  else if (Capitalised == "HILLVIEW") { return "Unincorporated" }
-  else if (Capitalised == "GREENDALE") { return "Unincorporated" }
-}
-
 function GetDistrictFromID(ListID) {
   var District = ""
   for (let key in Settings.AreaListIds) {
@@ -107,7 +94,7 @@ function GetDistrictFromID(ListID) {
 }
 
 @ApplyOptions({
-  name: "requestModal",
+  name: "request-modal",
 })
 export class ModalHandler extends InteractionHandler {
   public constructor(
@@ -133,7 +120,6 @@ export class ModalHandler extends InteractionHandler {
     const requestedLand = interaction.fields.getTextInputValue("requestedLand");
     const propertyUse = interaction.fields.getTextInputValue("propertyUse");
 
-    // If any value is null, instantly return.
     if (!businessPermit || !businessGroup || !propertiesBefore || !requestedLand || !propertyUse) {
       return interaction.reply({
         content: "You did not fill in the field correctly.",
@@ -150,7 +136,6 @@ export class ModalHandler extends InteractionHandler {
       });
     }
 
-    // Split the string at "/c/" for ease
     let CardTitle = requestedLand.split("/c/")
     if (!CardTitle[1]) {
       return interaction.reply({
@@ -159,7 +144,6 @@ export class ModalHandler extends InteractionHandler {
       });
     }
 
-    // Split directly after with "/" as the first element will be the ID of the card.
     var CardID = CardTitle[1].split("/")[0]
 
     const response = await axios({
@@ -170,7 +154,6 @@ export class ModalHandler extends InteractionHandler {
       }
     })
 
-    // Grab the name of the district from the parented list
     const District = GetDistrictFromID(response.data.idList)
 
     if (!District) {
@@ -180,7 +163,6 @@ export class ModalHandler extends InteractionHandler {
       });
     }
 
-    // Grab the information of the property
     const DistrictManagers = await GetManagersFromDistrict(District)
 
     if (!DistrictManagers) {
@@ -192,14 +174,12 @@ export class ModalHandler extends InteractionHandler {
 
     var DistrictManager = ""
 
-    // District managers id's stored in an array for tagging
     for (let row in DistrictManagers) {
       DistrictManager += `<@${DistrictManagers[row].DiscordId}> `
     }
 
     var DateS = new Date()
 
-    // Pushes the card to trello
     var NewCard = await PublishCard(robloxName,
       "#Land Request\n\n" +
       "---\n\n" +
@@ -214,11 +194,9 @@ export class ModalHandler extends InteractionHandler {
       "---\n\n" +
       `**Property Use**: ${propertyUse}`,
       Settings.LabelIds[District],
-      // Trello ids of the managers
       DistrictManagers.map((manager) => manager.TrelloId) || null
     )
 
-    // Make an embed for content data
     const newEmbed = new EmbedBuilder()
       .setAuthor({
         name: interaction.user.tag,
@@ -236,20 +214,16 @@ export class ModalHandler extends InteractionHandler {
       .setColor(global.embeds.embedColors.activity)
       .setFooter(global.embeds.embedFooter);
 
-    // Create a link button
     const incomingRequestButton = new ButtonBuilder()
       .setLabel("Request")
       .setURL(NewCard.shortUrl)
       .setStyle(ButtonStyle.Link);
 
-    // Create an action row to store the button
     const row = new ActionRowBuilder<ButtonBuilder>().addComponents(incomingRequestButton);
 
-    // Send the content to the channel
     const channel = await interaction.client.channels.fetch(global.ChannelIDs.landSubmissions) as TextChannel;
     channel.send({ content: DistrictManager, embeds: [newEmbed], components: [row] });
 
-    // Client returner
     return interaction.reply({
       content: "Your submission was received successfully!",
       ephemeral: true,

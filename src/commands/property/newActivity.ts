@@ -26,7 +26,7 @@ export default class ViewHistoryCommand extends Command {
 
     public async chatInputRun(interaction: ChatInputCommandInteraction) {
         const modal = new ModalBuilder()
-            .setCustomId("activityModal")
+            .setCustomId("activity-modal")
             .setTitle("Activity Submission");
 
         const businessName = new TextInputBuilder()

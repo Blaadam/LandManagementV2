@@ -103,7 +103,7 @@ function AutoCorrectDistrictInput(Input) {
 }
 
 @ApplyOptions({
-    name: "activityModal",
+    name: "activity-modal",
 })
 export class ModalHandler extends InteractionHandler {
     public constructor(

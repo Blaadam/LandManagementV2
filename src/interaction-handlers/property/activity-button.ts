@@ -21,7 +21,7 @@ export class ButtonHandler extends InteractionHandler {
 
     public async run(interaction: ButtonInteraction) {
         const modal = new ModalBuilder()
-            .setCustomId("activityModal")
+            .setCustomId("activity-modal")
             .setTitle("Activity Submission");
         
             const businessName = new TextInputBuilder()

@@ -26,7 +26,7 @@ export default class ViewHistoryCommand extends Command {
 
     public async chatInputRun(interaction: ChatInputCommandInteraction) {
         const modal = new ModalBuilder()
-      .setCustomId("requestModal")
+      .setCustomId("request-modal")
       .setTitle("New Property");
 
     const businessPermit = new TextInputBuilder()
