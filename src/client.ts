@@ -11,11 +11,12 @@ export default class Client extends SapphireClient {
     super({
       intents: [
         GatewayIntentBits.Guilds,
-        // GatewayIntentBits.GuildMessages,
+        GatewayIntentBits.GuildMessages,
         GatewayIntentBits.GuildMembers,
-        // GatewayIntentBits.GuildPresences,
+        GatewayIntentBits.GuildPresences,
         GatewayIntentBits.MessageContent,
         GatewayIntentBits.GuildVoiceStates,
+        GatewayIntentBits.DirectMessages,
       ],
       logger: {
         level: LogLevel.Info,
