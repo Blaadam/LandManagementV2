@@ -43,7 +43,7 @@ global.embeds = {
     success: "#00ff00",
   },
   embedFooter: {
-    text: "Service Desk BLM",
+    text: "Service Management Centre",
     iconURL:
       "https://i.imgur.com/cfI0qUe.jpg",
   },

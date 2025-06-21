@@ -62,7 +62,7 @@ export default class ViewHistoryCommand extends Command {
 
     // Create a link button
     const SendActivity = new ButtonBuilder()
-      .setCustomId('activityButton')
+      .setCustomId('activity-button')
       .setLabel('Submit Activity')
       .setStyle(ButtonStyle.Success);
 
