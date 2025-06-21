@@ -107,7 +107,7 @@ function GetDistrictFromID(ListID) {
 }
 
 @ApplyOptions({
-  name: "activityModal",
+  name: "requestModal",
 })
 export class ModalHandler extends InteractionHandler {
   public constructor(
@@ -233,7 +233,7 @@ export class ModalHandler extends InteractionHandler {
         { name: "Trello Link", value: NewCard.shortUrl },
       )
       .setTimestamp()
-      .setColor(global.embeds.embedColor.activity)
+      .setColor(global.embeds.embedColors.activity)
       .setFooter(global.embeds.embedFooter);
 
     // Create a link button

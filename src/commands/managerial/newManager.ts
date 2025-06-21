@@ -71,7 +71,7 @@ export default class ViewHistoryCommand extends Command {
         )
 
         .addStringOption(option =>
-          option.setName('trello')
+          option.setName('trelloid')
             .setDescription('Their unique TrelloID')
             .setRequired(true))
 
@@ -84,7 +84,7 @@ export default class ViewHistoryCommand extends Command {
 
     const manager = interaction.options.getUser("manager", true)
     const district = interaction.options.getString("district", true)
-    const trelloID = interaction.options.getString("trello", true)
+    const trelloID = interaction.options.getString("trelloid", true)
 
     let response: string;
     try {
