@@ -1,6 +1,6 @@
 # LandManagementV2
 
-LandManagementV2 is a repository that contains all the necessary code for the Firestone Department of Commerce's Discord Bot.
+LandManagementV2 is a repository that contains all the necessary code for the Firestone Department of Commerce's Discord Bot, designed to improve departmental workflow and support.
 
 ## Built With
 
@@ -91,8 +91,3 @@ or,
 ```ps1
 just cleanbuild
 ```
-
-## TODO
-
-1. Setup AWS VPC
-2. Setup
