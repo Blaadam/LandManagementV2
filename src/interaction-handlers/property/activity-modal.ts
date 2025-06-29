@@ -22,6 +22,8 @@ const TRELLO_KEY = process.env.TRELLO_KEY;
 const TRELLO_TOKEN = process.env.TRELLO_TOKEN;
 const ADDON = `?key=${TRELLO_KEY}&token=${TRELLO_TOKEN}`
 
+const ACTIVE_LIST_ID = "641e10486e814e91bb2f6d31"
+
 async function CommentOnTrelloCardID(cardId: string, comment: string) {
     var url = `https://api.trello.com/1/cards/${cardId}/actions/comments${ADDON}`
 
@@ -60,7 +62,7 @@ async function FindTrelloCardFromName(query: string) {
     for (let i = 0; i < response.data.cards.length; i++) {
         console.log(response.data.cards[i])
 
-        if (response.data.cards[i].listId == "641e10486e814e91bb2f6d31" && !response.data.cards[i].closed) {
+        if (response.data.cards[i].listId == ACTIVE_LIST_ID && !response.data.cards[i].closed) {
            card = response.data.cards[i]
             break;
         }
