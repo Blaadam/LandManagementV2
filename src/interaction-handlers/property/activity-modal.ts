@@ -47,33 +47,26 @@ async function FindTrelloCardFromName(query: string) {
             query: query,
             idBoards: ["641e058f71db0c8ed6abecd7"],
             modelTypes: "cards",
-            card_fields: "name,shortUrl",
-            cards_limit: 1
+            card_fields: "name,shortUrl,closed,idList",
+            cards_limit: 5
         },
         headers: { "Content-Type": "application/json" }
     })
 
     if (response.data.cards.length == 0) return null
-    return response.data.cards[0]
-}
 
-async function PublishCard(Title, Description, Labels, Managers) {
-    var url = `https://api.trello.com/1/cards${ADDON}`
+    // find first card that isnt archived
+    var card
+    for (let i = 0; i < response.data.cards.length; i++) {
+        console.log(response.data.cards[i])
 
-    let response = await axios({
-        "method": 'post',
-        "url": url,
-        data: {
-            "name": Title,
-            "desc": Description,
-            "idList": "642e6003d62b62d1077a74c9",
-            "idLabels": Labels || null,
-            "idMembers": Managers || null
-        },
-        headers: { "Content-Type": "application/json" }
-    })
+        if (response.data.cards[i].listId == "641e10486e814e91bb2f6d31" && !response.data.cards[i].closed) {
+           card = response.data.cards[i]
+            break;
+        }
+    }
 
-    return response.data
+    return card;
 }
 
 function SpliceUsername(Username) {
