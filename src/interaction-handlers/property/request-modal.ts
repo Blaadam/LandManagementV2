@@ -22,6 +22,8 @@ const TRELLO_KEY = process.env.TRELLO_KEY;
 const TRELLO_TOKEN = process.env.TRELLO_TOKEN;
 const ADDON = `?key=${TRELLO_KEY}&token=${TRELLO_TOKEN}`
 
+const REQUEST_LIST_ID = "6420a5767b2828fea92316e6"
+
 const Settings = {
   AreaListIds: {
     // Default Cities
@@ -55,7 +57,7 @@ async function PublishCard(Title, Description, Labels, Managers) {
     data: {
       "name": Title,
       "desc": Description,
-      "idList": "642e6003d62b62d1077a74c9",
+      "idList": REQUEST_LIST_ID,
       "idLabels": Labels || null,
       "idMembers": Managers || null
     },
