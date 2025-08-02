@@ -55,7 +55,7 @@ export default class ViewHistoryCommand extends Command {
               { name: 'Redwood', value: 'Redwood' },
               { name: 'Arborfield', value: 'Arborfield' },
               { name: 'Prominence', value: 'Prominence' },
-              { name: 'Unincorporated Areas', value: 'Unincorporated Areas' }
+              { name: 'Unincorporated Areas', value: 'Unincorporated' }
             )
         )
 

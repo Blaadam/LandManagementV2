@@ -91,11 +91,11 @@ function AutoCorrectDistrictInput(Input) {
     if (Capitalised == "REDWOOD") { return "Redwood" }
     else if (Capitalised == "ARBORFIELD") { return "Arborfield" }
     else if (Capitalised == "PROMINENCE") { return "Prominence" }
-    else if (Capitalised == "UNINCORPORATED") { return "Unincorporated Areas" }
+    else if (Capitalised == "UNINCORPORATED") { return "Unincorporated" }
 
-    else if (Capitalised == "FARMS") { return "Unincorporated Areas" }
-    else if (Capitalised == "HILLVIEW") { return "Unincorporated Areas" }
-    else if (Capitalised == "GREENDALE") { return "Unincorporated Areas" }
+    else if (Capitalised == "FARMS") { return "Unincorporated" }
+    else if (Capitalised == "HILLVIEW") { return "Unincorporated" }
+    else if (Capitalised == "GREENDALE") { return "Unincorporated" }
 }
 
 @ApplyOptions({

@@ -31,7 +31,7 @@ const Settings = {
     "Arborfield": ["641e108a923770039e58f70b"],
     "Prominence": ["641e108172f11b32b2cd1d7a"],
 
-    // Unincorporated Areas
+    // Unincorporated
     "Unincorporated": ["641e15dc99f278f73fcfbb9e"],
     "Greendale": ["641e174a2bdd24d0cb8ac85f", "Unincorporated"],
     "Hillview": ["641e17536f76c164213b94b0", "Unincorporated"],

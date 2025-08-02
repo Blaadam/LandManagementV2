@@ -33,7 +33,7 @@ export class ButtonHandler extends InteractionHandler {
             const propertyDistrict = new TextInputBuilder()
               .setCustomId("propertyDistrict")
               .setLabel("Property District")
-              .setPlaceholder("Redwood, Prominence, Unincorporated Areas & Prominence\nALT: Farms, Hillview, Greendale")
+              .setPlaceholder("Redwood, Prominence, Unincorporated & Prominence\nALT: Farms, Hillview, Greendale")
               .setStyle(TextInputStyle.Short);
         
             const propertyActivity = new TextInputBuilder()
