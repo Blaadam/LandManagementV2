@@ -134,6 +134,13 @@ export class ModalHandler extends InteractionHandler {
         const robloxName = SpliceUsername(interaction.user.displayName)
         const District = AutoCorrectDistrictInput(propertyDistrict)
 
+        if (!District) {
+            return interaction.reply({
+                content: `The district \`\`${propertyDistrict}\`\` is not valid. Please use one of the following districts: \`Redwood\`, \`Arborfield\`, \`Prominence\`, or \`Unincorporated\`.`,
+                ephemeral: true,
+            });
+        }
+
         // Grab the information of the property
         const DistrictManagers = await GetManagersFromDistrict(District)
 
