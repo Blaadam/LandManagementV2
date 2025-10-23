@@ -55,19 +55,19 @@ export default class ViewHistoryCommand extends Command {
                         new StringSelectMenuOptionBuilder()
                             .setLabel("Redwood")
                             .setValue("Redwood")
-                            .setDescription("Any properties located within the downtown district of the City of Redwood"),
+                            .setDescription("Properties located within the Redwood District"),
                         new StringSelectMenuOptionBuilder()
                             .setLabel("Arborfield")
                             .setValue("Arborfield")
-                            .setDescription("Any properties located within the City of Arborfield"),
+                            .setDescription("Properties located within the Arborfield District"),
                         new StringSelectMenuOptionBuilder()
                             .setLabel("Prominence")
                             .setValue("Prominence")
-                            .setDescription("Any properties located within the District of Prominence"),
+                            .setDescription("Properties located within the Prominence District"),
                         new StringSelectMenuOptionBuilder()
                             .setLabel("Unincorporated")
                             .setValue("Unincorporated")
-                            .setDescription("Any properties located within Hillview, Greendale, Arborfield Farms and other unincorporated areas"),
+                            .setDescription("Properties located within the Hillview, Greendale and Arborfield Farms Districts"),
                     )
                     .setRequired(true)
             )
