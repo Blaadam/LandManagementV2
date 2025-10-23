@@ -1,7 +1,10 @@
 import { Command, ApplicationCommandRegistry } from "@sapphire/framework";
 import {
-    ActionRowBuilder,
+    LabelBuilder,
     ModalBuilder,
+    StringSelectMenuBuilder,
+    StringSelectMenuOptionBuilder,
+    TextDisplayBuilder,
     TextInputBuilder,
     TextInputStyle,
     type ChatInputCommandInteraction,
@@ -29,43 +32,69 @@ export default class ViewHistoryCommand extends Command {
             .setCustomId("activity-modal")
             .setTitle("Activity Submission");
 
-        const businessName = new TextInputBuilder()
-            .setCustomId("businessName")
+        const businessNameLabel = new LabelBuilder()
             .setLabel("Business")
-            .setPlaceholder("Spectra Pipeline Management")
-            .setStyle(TextInputStyle.Short);
+            .setTextInputComponent(
+                new TextInputBuilder()
+                    .setCustomId("businessName")
+                    .setPlaceholder("Spectra Pipeline Management")
+                    .setStyle(TextInputStyle.Short)
+                    .setRequired(true)
+            );
 
-        const propertyDistrict = new TextInputBuilder()
-            .setCustomId("propertyDistrict")
+        const randomTextDisplay = new TextDisplayBuilder()
+            .setContent("Please select the property district from the dropdown menu below.");
+
+        const propertyMenu = new LabelBuilder()
             .setLabel("Property District")
-            .setPlaceholder("Redwood, Prominence, Unincorporated & Prominence\nALT: Farms, Hillview, Greendale")
-            .setStyle(TextInputStyle.Short);
+            .setStringSelectMenuComponent(
+                new StringSelectMenuBuilder()
+                    .setCustomId("propertyDistrict")
+                    .setPlaceholder("Select the property district")
+                    .addOptions(
+                        new StringSelectMenuOptionBuilder()
+                            .setLabel("Redwood")
+                            .setValue("Redwood")
+                            .setDescription("Any properties located within the downtown district of the City of Redwood"),
+                        new StringSelectMenuOptionBuilder()
+                            .setLabel("Arborfield")
+                            .setValue("Arborfield")
+                            .setDescription("Any properties located within the City of Arborfield"),
+                        new StringSelectMenuOptionBuilder()
+                            .setLabel("Prominence")
+                            .setValue("Prominence")
+                            .setDescription("Any properties located within the District of Prominence"),
+                        new StringSelectMenuOptionBuilder()
+                            .setLabel("Unincorporated")
+                            .setValue("Unincorporated")
+                            .setDescription("Any properties located within Hillview, Greendale, Arborfield Farms and other unincorporated areas"),
+                    )
+                    .setRequired(true)
+            )
 
-        const propertyActivity = new TextInputBuilder()
-            .setCustomId("propertyActivity")
+        const propertyActivityLabel = new LabelBuilder()
             .setLabel("Property Activity Evidence")
-            .setPlaceholder("[LINK]")
-            .setStyle(TextInputStyle.Paragraph);
+            .setTextInputComponent(
+                new TextInputBuilder()
+                    .setCustomId("propertyActivity")
+                    .setPlaceholder("[LINK]")
+                    .setStyle(TextInputStyle.Paragraph)
+                    .setRequired(true)
+            );
 
-        const additionalInformation = new TextInputBuilder()
-            .setCustomId("additionalInformation")
+        const additionalInformationLabel = new LabelBuilder()
             .setLabel("Additional Information")
-            .setPlaceholder("Default: N/A")
-            .setStyle(TextInputStyle.Paragraph);
+            .setTextInputComponent(
+                new TextInputBuilder()
+                    .setCustomId("additionalInformation")
+                    .setPlaceholder("Default: N/A")
+                    .setStyle(TextInputStyle.Paragraph)
+            );
 
-        const firstActionRow = new ActionRowBuilder<TextInputBuilder>().addComponents(businessName);
-        const secondActionRow = new ActionRowBuilder<TextInputBuilder>().addComponents(propertyDistrict);
-        const thirdActionRow = new ActionRowBuilder<TextInputBuilder>().addComponents(propertyActivity);
-        const fourthActionRow = new ActionRowBuilder<TextInputBuilder>().addComponents(additionalInformation);
-
-        modal.addComponents(
-            firstActionRow,
-            secondActionRow,
-            thirdActionRow,
-            fourthActionRow
-        );
+        modal.addLabelComponents(businessNameLabel);
+        modal.addTextDisplayComponents(randomTextDisplay);
+        modal.addLabelComponents(propertyMenu, propertyActivityLabel, additionalInformationLabel);
 
         return await interaction.showModal(modal);
-
     }
 }

@@ -120,7 +120,7 @@ export class ModalHandler extends InteractionHandler {
 
     public async run(interaction: ModalSubmitInteraction) {
         const businessName = interaction.fields.getTextInputValue("businessName");
-        const propertyDistrict = interaction.fields.getTextInputValue("propertyDistrict");
+        const propertyDistrict = interaction.fields.getStringSelectValues("propertyDistrict");
         const propertyActivity = interaction.fields.getTextInputValue("propertyActivity");
         const additionalInformation = interaction.fields.getTextInputValue("additionalInformation");
 
