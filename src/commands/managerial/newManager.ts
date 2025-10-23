@@ -80,7 +80,7 @@ export default class ViewHistoryCommand extends Command {
   }
 
   public async chatInputRun(interaction: ChatInputCommandInteraction) {
-    await interaction.deferReply({ ephemeral: true });
+    await interaction.deferReply({ flags: ["Ephemeral"], });
 
     const manager = interaction.options.getUser("manager", true)
     const district = interaction.options.getString("district", true)

@@ -40,7 +40,7 @@ export class ModalHandler extends InteractionHandler {
         if (!bugTitle || !bugDesc) {
             return interaction.reply({
                 content: "You did not fill in the fields correctly.",
-                ephemeral: true,
+                flags: ["Ephemeral"],
             });
         }
 
@@ -64,7 +64,7 @@ export class ModalHandler extends InteractionHandler {
         if (!user) {
             return interaction.reply({
                 content: "The receiving user could not be found.",
-                ephemeral: true,
+                flags: ["Ephemeral"],
             });
         }
 
@@ -74,7 +74,7 @@ export class ModalHandler extends InteractionHandler {
 
         return interaction.reply({
             content: `Your submission was received successfully and has been forwarded to support.`,
-            ephemeral: true,
+            flags: ["Ephemeral"],
         });
     }
 }

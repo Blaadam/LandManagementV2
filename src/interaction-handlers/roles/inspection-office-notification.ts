@@ -34,15 +34,15 @@ export class ButtonHandler extends InteractionHandler {
 
             if (hasRole) {
                 (interaction.member as GuildMember).roles.remove(role);
-                return interaction.reply({ content: `Your role for \"${SEARCH_ROLE}\" has been removed.`, ephemeral: true })
+                return interaction.reply({ content: `Your role for \"${SEARCH_ROLE}\" has been removed.`, flags: ["Ephemeral"], })
             }
             else {
                 (interaction.member as GuildMember).roles.add(role);
-                return interaction.reply({ content: `Your role for \"${SEARCH_ROLE}\" has been added.`, ephemeral: true })
+                return interaction.reply({ content: `Your role for \"${SEARCH_ROLE}\" has been added.`, flags: ["Ephemeral"], })
             }
         }
         else {
-            return interaction.reply({ content: "Couldn't find the role :(", ephemeral: true })
+            return interaction.reply({ content: "Couldn't find the role :(", flags: ["Ephemeral"], })
         }
     }
 }

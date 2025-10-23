@@ -125,7 +125,7 @@ export class ModalHandler extends InteractionHandler {
     if (!businessPermit || !businessGroup || !propertiesBefore || !requestedLand || !propertyUse) {
       return interaction.reply({
         content: "You did not fill in the field correctly.",
-        ephemeral: true,
+        flags: ["Ephemeral"],
       });
     }
 
@@ -134,7 +134,7 @@ export class ModalHandler extends InteractionHandler {
     if (!requestedLand.search("trello.com/c/")) {
       return interaction.reply({
         content: "You did not specify a trello link.",
-        ephemeral: true,
+        flags: ["Ephemeral"],
       });
     }
 
@@ -142,7 +142,7 @@ export class ModalHandler extends InteractionHandler {
     if (!CardTitle[1]) {
       return interaction.reply({
         content: "You did not specify a trello link.\nContact a BLM Service Manager if this is a mistake.",
-        ephemeral: true,
+        flags: ["Ephemeral"],
       });
     }
 
@@ -161,7 +161,7 @@ export class ModalHandler extends InteractionHandler {
     if (!District) {
       return interaction.reply({
         content: "Unable to find district.\nContact a BLM Service Manager if this is a mistake.",
-        ephemeral: true,
+        flags: ["Ephemeral"],
       });
     }
 
@@ -170,7 +170,7 @@ export class ModalHandler extends InteractionHandler {
     if (!DistrictManagers) {
       return interaction.reply({
         content: "Unable to find district manager.\nContact a BLM Service Manager if this is a mistake.",
-        ephemeral: true,
+        flags: ["Ephemeral"],
       });
     }
 
@@ -228,7 +228,7 @@ export class ModalHandler extends InteractionHandler {
 
     return interaction.reply({
       content: "Your submission was received successfully!",
-      ephemeral: true,
+      flags: ["Ephemeral"],
     });
   }
 }

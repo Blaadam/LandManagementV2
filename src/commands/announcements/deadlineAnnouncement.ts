@@ -35,7 +35,7 @@ export default class ViewHistoryCommand extends Command {
   }
 
   public async chatInputRun(interaction: ChatInputCommandInteraction) {
-    await interaction.deferReply({ ephemeral: true });
+    await interaction.deferReply({ flags: ["Ephemeral"] });
 
     const submissionDeadline = interaction.options.getString("deadline-date", true);
 

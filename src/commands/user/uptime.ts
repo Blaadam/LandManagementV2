@@ -64,6 +64,6 @@ export default class UptimeCommand extends Command {
             .setColor(global.embeds.embedColors.default)
             .setFooter(global.embeds.embedFooter);
 
-        return interaction.reply({ embeds: [responseEmbed], ephemeral: true });
+        return interaction.reply({ embeds: [responseEmbed], flags: ["Ephemeral"] });
     }
 }

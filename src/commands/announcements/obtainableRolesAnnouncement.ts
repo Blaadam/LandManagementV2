@@ -86,7 +86,7 @@ export default class ViewHistoryCommand extends Command {
         // Client returner
         return interaction.reply({
             content: "Sent Message",
-            ephemeral: true,
+            flags: ["Ephemeral"],
         });
 
     }

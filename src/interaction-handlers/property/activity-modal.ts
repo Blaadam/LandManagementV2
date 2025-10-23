@@ -85,18 +85,18 @@ async function GetManagersFromDistrict(district: string) {
     return rows;
 }
 
-function AutoCorrectDistrictInput(Input) {
-    var Capitalised = Input.toUpperCase()
+// function AutoCorrectDistrictInput(Input) {
+//     var Capitalised = Input.toUpperCase()
 
-    if (Capitalised == "REDWOOD") { return "Redwood" }
-    else if (Capitalised == "ARBORFIELD") { return "Arborfield" }
-    else if (Capitalised == "PROMINENCE") { return "Prominence" }
-    else if (Capitalised == "UNINCORPORATED") { return "Unincorporated" }
+//     if (Capitalised == "REDWOOD") { return "Redwood" }
+//     else if (Capitalised == "ARBORFIELD") { return "Arborfield" }
+//     else if (Capitalised == "PROMINENCE") { return "Prominence" }
+//     else if (Capitalised == "UNINCORPORATED") { return "Unincorporated" }
 
-    else if (Capitalised == "FARMS") { return "Unincorporated" }
-    else if (Capitalised == "HILLVIEW") { return "Unincorporated" }
-    else if (Capitalised == "GREENDALE") { return "Unincorporated" }
-}
+//     else if (Capitalised == "FARMS") { return "Unincorporated" }
+//     else if (Capitalised == "HILLVIEW") { return "Unincorporated" }
+//     else if (Capitalised == "GREENDALE") { return "Unincorporated" }
+// }
 
 @ApplyOptions({
     name: "activity-modal",
@@ -127,17 +127,17 @@ export class ModalHandler extends InteractionHandler {
         if (!businessName || !propertyDistrict || !propertyActivity || !additionalInformation) {
             return interaction.reply({
                 content: "You did not fill in the fields correctly.",
-                ephemeral: true,
+                flags: ["Ephemeral"],
             });
         }
 
         const robloxName = SpliceUsername(interaction.user.displayName)
-        const District = AutoCorrectDistrictInput(propertyDistrict)
+        const District = propertyDistrict[0]
 
         if (!District) {
             return interaction.reply({
-                content: `The district \`\`${propertyDistrict}\`\` is not valid. Please use one of the following districts: \`Redwood\`, \`Arborfield\`, \`Prominence\`, or \`Unincorporated\`.`,
-                ephemeral: true,
+                content: `The district \`\`${District}\`\` is not valid. Please use one of the following districts: \`Redwood\`, \`Arborfield\`, \`Prominence\`, or \`Unincorporated\`.`,
+                flags: ["Ephemeral"],
             });
         }
 
@@ -146,8 +146,8 @@ export class ModalHandler extends InteractionHandler {
 
         if (!DistrictManagers) {
             return interaction.reply({
-                content: `Unable to find district manager for \`\`${propertyDistrict}\`\`.\nContact [Tecxera](https://discord.gg/5SdTjEKCdM).`,
-                ephemeral: true,
+                content: `Unable to find district manager for \`\`${District}\`\`.\nContact [Tecxera](https://discord.gg/5SdTjEKCdM).`,
+                flags: ["Ephemeral"],
             });
         }
 
@@ -164,7 +164,7 @@ export class ModalHandler extends InteractionHandler {
         if (!ExistingCard) {
             return interaction.reply({
                 content: `Unable to find a Trello card with the query \`\`${query}\`\`. Please ensure the business name is correct.`,
-                ephemeral: true,
+                flags: ["Ephemeral"],
             });
         }
 
@@ -214,7 +214,7 @@ export class ModalHandler extends InteractionHandler {
 
         return interaction.reply({
             content: `Your submission was received successfully and has been added to the existing Trello card. Check the card [here](${ExistingCard.shortUrl}).`,
-            ephemeral: true,
+            flags: ["Ephemeral"],
         });
     }
 }

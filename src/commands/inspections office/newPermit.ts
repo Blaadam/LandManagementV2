@@ -32,7 +32,7 @@ export default class ViewHistoryCommand extends Command {
   }
 
   public async chatInputRun(interaction: ChatInputCommandInteraction) {
-    await interaction.deferReply({ ephemeral: true });
+    await interaction.deferReply({ flags: ["Ephemeral"] });
 
     const user = interaction.options.getUser('user');
     const permitLink = interaction.options.getString('permit');
