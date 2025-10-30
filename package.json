@@ -9,7 +9,7 @@
     "@sapphire/discord.js-utilities": "^7.3.3",
     "@sapphire/framework": "^5.3.7",
     "axios": "^1.12.2",
-    "discord.js": "^14.23.2",
+    "discord.js": "^14.24.1",
     "dotenv": "^16.6.1",
     "mariadb": "^3.4.5",
     "node-fetch": "^3.3.2",
