@@ -60,9 +60,6 @@ async function FindTrelloCardFromName(query: string) {
     // find first card that isnt archived
     var card
     for (let i = 0; i < response.data.cards.length; i++) {
-        console.log(response.data.cards[i])
-        console.log(response.data.cards[i].idList, ACTIVE_LIST_ID)
-
         if (response.data.cards[i].idList == ACTIVE_LIST_ID && !response.data.cards[i].closed) {
            card = response.data.cards[i]
             break;

@@ -3,6 +3,7 @@ import {
     FileUploadBuilder,
     LabelBuilder,
     ModalBuilder,
+    PermissionFlagsBits,
     StringSelectMenuBuilder,
     StringSelectMenuOptionBuilder,
     TextDisplayBuilder,
@@ -24,7 +25,8 @@ export default class ViewHistoryCommand extends Command {
         registry.registerChatInputCommand((command) => {
             command
                 .setName(this.name)
-                .setDescription(this.description);
+                .setDescription(this.description)
+                .setDefaultMemberPermissions(PermissionFlagsBits.Administrator);
         });
     }
 
