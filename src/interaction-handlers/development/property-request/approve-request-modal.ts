@@ -58,7 +58,8 @@ export class ModalHandler extends InteractionHandler {
         const embed = message.embeds[0];
         const landPermit = embed.fields.find(field => field.name === "Land Permit")?.value || "unknown";
 
-        await submitter.send({
+        const dmChannel = await submitter.createDM();
+        await dmChannel.send({
             content: `Your property submission has been approved by ${interaction.user.toString()}.`,
             embeds: [embed],
             files: propertyFile ? [propertyFile] : [],

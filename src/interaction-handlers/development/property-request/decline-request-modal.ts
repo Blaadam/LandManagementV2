@@ -58,7 +58,8 @@ export class ModalHandler extends InteractionHandler {
         const embed = message.embeds[0];
         const landPermit = embed.fields.find(field => field.name === "Land Permit")?.value || "unknown";
 
-        await submitter.send({
+        const dmChannel = await submitter.createDM();
+        await dmChannel.send({
             content: `Your property request has been declined by ${interaction.user.toString()} for the following reason:\n\n${declineReason}`,
             embeds: [embed],
         });
