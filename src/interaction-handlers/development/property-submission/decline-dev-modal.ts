@@ -38,7 +38,7 @@ export class ModalHandler extends InteractionHandler {
     }
 
     public override parse(interaction: ModalSubmitInteraction) {
-        if (!interaction.customId.startsWith("decline-dev-modal")) {
+        if (!interaction.customId.startsWith(this.name)) {
             return this.none();
         }
 

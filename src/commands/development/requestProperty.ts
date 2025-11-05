@@ -25,8 +25,7 @@ export default class ViewHistoryCommand extends Command {
         registry.registerChatInputCommand((command) => {
             command
                 .setName(this.name)
-                .setDescription(this.description)
-                .setDefaultMemberPermissions(PermissionFlagsBits.Administrator);
+                .setDescription(this.description);
         });
     }
 
