@@ -15,7 +15,7 @@ import { ApplyOptions } from "@sapphire/decorators";
 @ApplyOptions<Command.Options>({
     name: "submit-property",
     description: "Submit a property file for review.",
-    cooldownDelay: 10_000,
+    cooldownDelay: 5_000,
 })
 export default class ViewHistoryCommand extends Command {
     public override registerApplicationCommands(

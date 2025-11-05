@@ -11,7 +11,7 @@ import { ApplyOptions } from "@sapphire/decorators";
 @ApplyOptions<Command.Options>({
     name: "new-bug-report",
     description: "Create a new bug report submission",
-    cooldownDelay: 10_000,
+    cooldownDelay: 2_500,
 })
 export default class ViewHistoryCommand extends Command {
     public override registerApplicationCommands(

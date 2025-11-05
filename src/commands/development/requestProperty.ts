@@ -16,7 +16,7 @@ import { ApplyOptions } from "@sapphire/decorators";
 @ApplyOptions<Command.Options>({
     name: "request-property",
     description: "Make a request for a property file.",
-    cooldownDelay: 10_000,
+    cooldownDelay: 2_500,
 })
 export default class ViewHistoryCommand extends Command {
     public override registerApplicationCommands(
