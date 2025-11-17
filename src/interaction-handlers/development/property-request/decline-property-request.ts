@@ -1,6 +1,7 @@
 import { ApplyOptions } from '@sapphire/decorators';
 import { InteractionHandler, InteractionHandlerTypes } from '@sapphire/framework';
 import { ActionRowBuilder, Embed, EmbedBuilder, LabelBuilder, ModalBuilder, TextDisplayBuilder, TextInputBuilder, TextInputStyle, User, type ButtonInteraction, type GuildMember } from 'discord.js';
+import { getUserIdFromString } from '../../../shared/useridFromString';
 
 @ApplyOptions({
   name: "decline-property-request",
@@ -21,14 +22,19 @@ export class ButtonHandler extends InteractionHandler {
 
   public async run(interaction: ButtonInteraction) {
     const messageId = interaction.message.id;
-    const submitter: User = interaction.message.mentions.users.first();
+    const submitterId = getUserIdFromString(interaction.message.content);
+    if (!submitterId) {
+      throw new Error("Could not extract submitter ID from message content.");
+    }
+
+    const submitter: User = interaction.client.users.cache.get(submitterId) || await interaction.client.users.fetch(submitterId);
 
     const declineModal = new ModalBuilder()
       .setCustomId(`decline-request-modal-${messageId}`)
       .setTitle("Decline Property Request");
 
     const declineTextDisplay = new TextDisplayBuilder()
-      .setContent(`You are declining the property request by **${submitter.tag}**.\nPlease provide a reason for declining this request below.`);
+      .setContent(`You are declining the property request by **${submitter.username}**.\nPlease provide a reason for declining this request below.`);
 
     const declineReasonLabel = new LabelBuilder()
       .setLabel("Reason for Declining")

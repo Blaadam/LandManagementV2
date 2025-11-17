@@ -3,19 +3,17 @@ import {
     InteractionHandlerTypes,
 } from "@sapphire/framework";
 import {
-    ActionRowBuilder,
-    ButtonBuilder,
-    ButtonStyle,
     EmbedBuilder,
     TextChannel,
+    User,
     type ModalSubmitInteraction,
 } from "discord.js";
 import "dotenv";
 require("dotenv").config();
 
 import { ApplyOptions } from "@sapphire/decorators";
+import { getUserIdFromString } from "../../../shared/useridFromString";
 
-const PERMITTED_EXTENSIONS = [".rbxm"];
 const UPLOAD_CHANNEL = global.ChannelIDs.devSupportTickets;
 
 function SpliceUsername(username: string) {
@@ -54,7 +52,13 @@ export class ModalHandler extends InteractionHandler {
         const channel = interaction.client.channels.cache.get(UPLOAD_CHANNEL) as TextChannel;
         const message = await channel.messages.fetch(messageId);
 
-        const submitter = message.mentions.users.first();
+        const submitterId = getUserIdFromString(interaction.message.content);
+        if (!submitterId) {
+            throw new Error("Could not extract submitter ID from message content.");
+        }
+
+        const submitter: User = interaction.client.users.cache.get(submitterId) || await interaction.client.users.fetch(submitterId);
+
         const embed = message.embeds[0];
         const landPermit = embed.fields.find(field => field.name === "Land Permit")?.value || "unknown";
 

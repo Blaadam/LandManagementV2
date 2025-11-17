@@ -1,6 +1,7 @@
 import { ApplyOptions } from '@sapphire/decorators';
 import { InteractionHandler, InteractionHandlerTypes } from '@sapphire/framework';
 import { ActionRowBuilder, Embed, EmbedBuilder, FileUploadBuilder, LabelBuilder, ModalBuilder, TextDisplayBuilder, TextInputBuilder, TextInputStyle, User, type ButtonInteraction, type GuildMember } from 'discord.js';
+import { getUserIdFromString } from '../../../shared/useridFromString';
 
 @ApplyOptions({
   name: "approve-property-request",
@@ -21,7 +22,12 @@ export class ButtonHandler extends InteractionHandler {
 
   public async run(interaction: ButtonInteraction) {
     const messageId = interaction.message.id;
-    const submitter: User = interaction.message.mentions.users.first();
+    const submitterId = getUserIdFromString(interaction.message.content);
+    if (!submitterId) {
+      throw new Error("Could not extract submitter ID from message content.");
+    }
+
+    const submitter: User = interaction.client.users.cache.get(submitterId) || await interaction.client.users.fetch(submitterId);
     const embed: Embed = interaction.message.embeds[0];
 
     const landPermit = embed.fields.find(field => field.name === "Land Permit")?.value || "unknown";
@@ -31,7 +37,7 @@ export class ButtonHandler extends InteractionHandler {
       .setTitle("Approve Property Request");
 
     const approveTextDisplay = new TextDisplayBuilder()
-      .setContent(`You are approving the property request by **${submitter.tag}**.\nPlease attach the property file below.`);
+      .setContent(`You are approving the property request by **${submitter.username}**.\nPlease attach the property file below.`);
 
     const propertyFileUploadLabel = new LabelBuilder()
       .setLabel("Property File Upload")
