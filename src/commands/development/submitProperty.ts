@@ -25,6 +25,8 @@ export default class ViewHistoryCommand extends Command {
             command
                 .setName(this.name)
                 .setDescription(this.description);
+        }, {
+            guildIds: [],
         });
     }
 

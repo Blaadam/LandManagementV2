@@ -13,7 +13,9 @@ export default class PingCommand extends Command {
   ) {
     registry.registerChatInputCommand((command) => {
       command.setName(this.name).setDescription(this.description);
-    });
+        }, {
+            guildIds: [],
+        });
   }
 
   public chatInputRun(interaction: ChatInputCommandInteraction) {

@@ -45,6 +45,8 @@ export default class UptimeCommand extends Command {
     ) {
         registry.registerChatInputCommand((command) => {
             command.setName(this.name).setDescription(this.description);
+        }, {
+            guildIds: [],
         });
     }
 
