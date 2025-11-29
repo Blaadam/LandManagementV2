@@ -3,7 +3,7 @@ import { ActivityType, type Client } from "discord.js";
 
 const NODE_ENV = process.env.NODE_ENV ?? "development";
 
-export class ReadyListener extends Listener {
+export class ClientReadyListener extends Listener {
   public run(client: Client) {
     const { tag } = client.user!;
     this.container.logger.info(
