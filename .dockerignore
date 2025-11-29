@@ -1,0 +1,12 @@
+# Node/Docker ignores
+node_modules
+.env
+.git
+.vscode
+npm-debug.log
+.DS_Store
+dist
+build
+*.log
+coverage
+generated/**/node_modules

@@ -17,3 +17,9 @@ cleanbuild:
 cleanrun:
     just cleanbuild
     node .
+
+docker-dev:
+    docker compose -f docker-compose-dev.yml up
+
+docker-prod:
+    docker compose -f docker-compose-prod.yml up

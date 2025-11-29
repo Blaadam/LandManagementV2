@@ -3,4 +3,5 @@ node_modules
 .env
 *.mp3
 /generated/prisma
-src/interaction-handlers/report
+
+docker-compose-*.yml

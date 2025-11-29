@@ -143,7 +143,7 @@ export class ModalHandler extends InteractionHandler {
 
         if (!DistrictManagers) {
             return interaction.reply({
-                content: `Unable to find district manager for \`\`${District}\`\`.\nContact [Tecxera](https://discord.gg/5SdTjEKCdM).`,
+                content: `Unable to find district manager for \`\`${District}\`\`.\nContact [Nøyra](https://discord.gg/5SdTjEKCdM).`,
                 flags: ["Ephemeral"],
             });
         }
