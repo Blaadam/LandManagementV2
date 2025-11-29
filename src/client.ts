@@ -37,16 +37,16 @@ export default class Client extends SapphireClient {
 
 global.embeds = {
   embedColors: {
-    mgmt: "#6c584b",
-    activity: "#9E9885",
-    default: "#244837",
+    mgmt: "#f6ca43",
+    activity: "#00597f",
+    default: "#0070a0",
     error: "#ff0000",
     success: "#00ff00",
   },
   embedFooter: {
     text: "Service Management Centre",
     iconURL:
-      "https://i.imgur.com/cfI0qUe.jpg",
+      "https://media.discordapp.net/attachments/1444400912054354143/1444400974000291880/Noyra_DOCM-SD_pfp.png",
   },
 };
 
