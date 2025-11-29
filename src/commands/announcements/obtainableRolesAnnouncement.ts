@@ -1,14 +1,34 @@
 import { Command, ApplicationCommandRegistry } from "@sapphire/framework";
 import {
-    ActionRowBuilder,
-    ButtonBuilder,
     ButtonStyle,
-    EmbedBuilder,
+    ContainerBuilder,
+    MessageFlagsBitField,
     PermissionFlagsBits,
     TextChannel,
     type ChatInputCommandInteraction,
 } from "discord.js";
 import { ApplyOptions } from "@sapphire/decorators";
+
+const MESSAGE_PART1 = [
+    "Hello everyone,",
+    "We're introducing three optional notification roles that allow you to stay informed about specific updates and announcements relevant to your interests within the Department of Commerce.",
+];
+
+const ROLES = [
+    { name: "LM-NOTIF-OPT", description: "Receive Land Management updates and discussions" },
+    { name: "OPA-NOTIF-OPT", description: "Get announcements from the Office of Public Affairs" },
+    { name: "IO-NOTIF-OPT", description: "Receive notifications from the Inspections Office" },
+];
+
+const MESSAGE_PART2 = [
+    "Best regards,",
+    "Firestone Department of Commerce: Discord Server Team"
+]
+
+const DISCLAIMER_TEXT = [
+    "Commerce Service Desk is a service developed and managed by Nøyra.",
+    "Join our Discord for any inquiries: https://discord.gg/5SdTjEKCdM"
+]
 
 @ApplyOptions<Command.Options>({
     name: "roles-announcement",
@@ -28,60 +48,90 @@ export default class ViewHistoryCommand extends Command {
     }
 
     public async chatInputRun(interaction: ChatInputCommandInteraction) {
-        // if (interaction.user.id != "251442524516909058") {
-        //     return interaction.reply("Nuh uh")
-        // }
+        const rolesContainer = new ContainerBuilder()
+            .setAccentColor(global.embeds.accentColors.default)
+            .addTextDisplayComponents((textDisplay) =>
+                textDisplay.setContent(
+                    "## Notice of Obtainable Roles"
+                ),
+            );
 
-        const newEmbed = new EmbedBuilder()
-            .setAuthor({
-                name: interaction.user.tag,
-                iconURL:
-                    interaction.user.displayAvatarURL({ extension: "png", size: 512 }),
-            })
-            .setTitle("Notice of Obtainable Roles")
-            .setDescription(
-                "Dear Esteemed Users," +
-                "\n\n" +
-                "We are excited to introduce three new roles in our Discord server: \"LM-NOTIF-OPT,\" \"OPA-NOTIF-OPT,\" and \"IO-NOTIF-OPT\". " +
-                "\n\n" +
-                "1. <@&1164856752181870642>: Stay informed about Land Management updates and discussions.\n" +
-                "2. <@&1165634179497738292>: Be the first to know about new developments in the Office of Public Affairs\n" +
-                "3. <@&1165634260649115749>: Receive updates on our Inspections Office initiatives." +
-                "\n\n" +
-                "To opt in, simple click on the corrosponding button in attached below the message. If you have any queries, our support team is ready to assist." +
-                "\n\n" +
-                "Enjoy exploring these new roles!" +
-                "\n\n" +
-                "Best Regards,\n" +
-                "Firestone Department of Commerce: Discord Server Team"
+        rolesContainer.addSeparatorComponents((separator) => separator)
+        rolesContainer.addTextDisplayComponents((textDisplay) =>
+            textDisplay.setContent(MESSAGE_PART1.join("\n"))
+        )
 
+        for (const role of ROLES) {
+            rolesContainer.addSectionComponents((section) =>
+                section
+                    .setButtonAccessory((button) =>
+                        button.setCustomId(`enroll_${role.name}`).setLabel(`${role.name}`).setStyle(ButtonStyle.Success),
+                    )
+                    .addTextDisplayComponents(
+                        (textDisplay) =>
+                            textDisplay.setContent(
+                                `${role.name}`
+                            ),
+                        (textDisplay) => textDisplay.setContent(role.description),
+                    ),
+            );
+        }
+
+        rolesContainer.addTextDisplayComponents((textDisplay) =>
+            textDisplay.setContent(MESSAGE_PART2.join("\n"))
+        )
+
+        rolesContainer.addSeparatorComponents((separator) => separator);
+
+        rolesContainer.addTextDisplayComponents((textDisplay) =>
+            textDisplay.setContent(`-# ${DISCLAIMER_TEXT.join("\n-# ")}`)
+        );
+
+        rolesContainer.addTextDisplayComponents((textDisplay) =>
+            textDisplay.setContent(
+                `-# Last updated <t:${Math.floor(Date.now() / 1000)}:F>`
             )
-            .setTimestamp()
-            .setColor(global.embeds.embedColors.mgmt)
-            .setFooter(global.embeds.embedFooter);
+        );
 
-        // Create a link button
-        const landnotifrole = new ButtonBuilder()
-            .setCustomId('landnotifrole')
-            .setLabel('Obtain the LM-NOTIF-OPT role')
-            .setStyle(ButtonStyle.Success);
-
-        const publnotifrole = new ButtonBuilder()
-            .setCustomId('publnotifrole')
-            .setLabel('Obtain the OPA-NOTIF-OPT role')
-            .setStyle(ButtonStyle.Success);
-
-        const inspnotifrole = new ButtonBuilder()
-            .setCustomId('inspnotifrole')
-            .setLabel('Obtain the IO-NOTIF-OPT role')
-            .setStyle(ButtonStyle.Success);
-
-        // Create an action row to store the button
-        const row = new ActionRowBuilder<ButtonBuilder>().addComponents(landnotifrole, publnotifrole, inspnotifrole);
+        /*
+                const newEmbed = new EmbedBuilder()
+                    .setAuthor({
+                        name: interaction.user.tag,
+                        iconURL:
+                            interaction.user.displayAvatarURL({ extension: "png", size: 512 }),
+                    })
+                    .setTitle("Notice of Obtainable Roles")
+                    .setDescription(
+                        MESSAGE_DESC.join("\n")
+                    )
+                    .setTimestamp()
+                    .setColor(global.embeds.embedColors.mgmt)
+                    .setFooter(global.embeds.embedFooter);
+        
+                // Create a link button
+                const landnotifrole = new ButtonBuilder()
+                    .setCustomId('landnotifrole')
+                    .setLabel('Obtain the LM-NOTIF-OPT role')
+                    .setStyle(ButtonStyle.Success);
+        
+                const publnotifrole = new ButtonBuilder()
+                    .setCustomId('publnotifrole')
+                    .setLabel('Obtain the OPA-NOTIF-OPT role')
+                    .setStyle(ButtonStyle.Success);
+        
+                const inspnotifrole = new ButtonBuilder()
+                    .setCustomId('inspnotifrole')
+                    .setLabel('Obtain the IO-NOTIF-OPT role')
+                    .setStyle(ButtonStyle.Success);
+        
+                // Create an action row to store the button
+                const row = new ActionRowBuilder<ButtonBuilder>().addComponents(landnotifrole, publnotifrole, inspnotifrole);
+            */
 
         // Send the content to the channel
-        const channel = await interaction.client.channels.fetch("735894843259355288") as TextChannel;
-        channel.send({ embeds: [newEmbed], components: [row] });
+        const channel = await interaction.client.channels.fetch(global.ChannelIDs.rolesChannel) as TextChannel;
+        // channel.send({ embeds: [newEmbed], components: [row] });
+        channel.send({ components: [rolesContainer], flags: MessageFlagsBitField.Flags.IsComponentsV2 });
 
         // Client returner
         return interaction.reply({

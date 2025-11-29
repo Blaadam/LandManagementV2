@@ -43,6 +43,13 @@ global.embeds = {
     error: "#ff0000",
     success: "#00ff00",
   },
+  accentColors: {
+    mgmt: 0xf6ca43,
+    activity: 0x00597f,
+    default: 0x0070a0,
+    error: 0xff0000,
+    success: 0x00ff00,
+  },
   embedFooter: {
     text: "Service Management Centre",
     iconURL:
@@ -54,9 +61,10 @@ global.ChannelIDs = {
   deadlineAnnouncements: "735894843259355294",
   landSubmissions: "1089647073852403802",
   devSupportTickets: "1433519872209322196",
+  rolesChannel: "1444400690796433408",
 };
 
-global.mainServer = "735894836577697913";
+global.mainServer = process.env.MAIN_GUILD_ID;
 
 //// END OF CONFIGURATION ////
 

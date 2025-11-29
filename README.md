@@ -49,6 +49,7 @@ Copy the `docker-compose.yml` file, create an overriding compose file, and ensur
 ```ini
 - NODE_ENV=development
 # Bot credentials
+- MAIN_GUILD_ID=123456789012345678
 - BOT_CLIENT_ID=123456789012345678
 - BOT_SECRET=your_bot_secret_here
 
