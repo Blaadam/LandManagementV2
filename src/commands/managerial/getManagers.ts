@@ -27,7 +27,7 @@ async function GetManagersFromDistrict(district: string) {
 @ApplyOptions<Command.Options>({
   name: "get-managers",
   description: "Get the list of managers for a specific district",
-  cooldownDelay: 5_000,
+  cooldownDelay: 1_000,
 })
 export default class ViewHistoryCommand extends Command {
   public override registerApplicationCommands(
@@ -73,15 +73,8 @@ export default class ViewHistoryCommand extends Command {
         .setColor(global.embeds.embedColors.mgmt)
         .setTitle(`${district} Managers`)
         .setTimestamp()
-        .setFooter(global.embeds.embedFooter);
-
-      for (let i = 0; i < managers.length; i++) {
-        newEmbed.addFields({
-          name: (i + 1).toString(),
-          value: managers[i],
-          inline: false,
-        });
-      }
+        .setFooter(global.embeds.embedFooter)
+        .setDescription(managers.join("\n"));
 
       return interaction.editReply({
         embeds: [newEmbed]

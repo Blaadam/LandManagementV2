@@ -37,7 +37,7 @@ function formatUptime(seconds) {
 @ApplyOptions<Command.Options>({
     name: "uptime",
     description: "Displays the length of time the bot has been active for.",
-    cooldownDelay: 2_000,
+    cooldownDelay: 1_000,
 })
 export default class UptimeCommand extends Command {
     public override registerApplicationCommands(
