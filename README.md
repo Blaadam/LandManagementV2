@@ -1,6 +1,6 @@
-# LandManagementV2
+# CommerceServiceDesk
 
-LandManagementV2 is a repository that contains all the necessary code for the Firestone Department of Commerce's Discord Bot, designed to improve departmental workflow and support.
+CommerceServiceDesk is a repository that contains all the necessary code for the Firestone Department of Commerce's Discord Bot, designed to improve departmental workflow and support.
 
 ## Built With
 
@@ -9,6 +9,7 @@ LandManagementV2 is a repository that contains all the necessary code for the Fi
 - **[SapphireJS](https://sapphirejs.dev/)**: An object-orientated Discord.js bot framework.
 - **[Discord.js](https://discord.js.org/)**: Powerful Node.js module that allows you to interact with the Discord API very easily.
 - **[Prisma ORM](https://www.prisma.io/orm)**: Next-generation Node.js and TypeScript ORM.
+- **[Docker](https://www.docker.com/)**: Build, secure, share, and run agents and apps on the container platform trusted by 20M+ developers.
 
 ## Getting Started
 
@@ -43,26 +44,39 @@ If you want to push to a database, you migrate the database
 npx prisma migrate dev --name "NAME HERE"
 ```
 
-Ensure that a `.env` file exists, with the following data:
+Copy the `docker-compose.yml` file, create an overriding compose file, and ensure the following environment variables are updated:
 
 ```ini
+- NODE_ENV=development
 # Bot credentials
-BOT_CLIENT_ID="BOT CLIENT ID HERE"
-BOT_SECRET="BOT SECRET HERE"
+- BOT_CLIENT_ID=123456789012345678
+- BOT_SECRET=your_bot_secret_here
 
 # MariaDB credentials
-MARIADB_HOST="192.168.0.0"
-MARIADB_PORT="3306"
-MARIADB_USER="MARIADB USER HERE"
-MARIADB_PASSWORD="MARIADB USER PASSWORD HERE"
-MARIADB_DATABASE="MARIADB DATABASE HERE"
+- MARIADB_HOST=192.168.xxx.xxx
+- MARIADB_PORT=3306
+- MARIADB_USER=your_db_user
+- MARIADB_PASSWORD=your_db_password
+- MARIADB_DATABASE=your_db_name
 
 # Prisma configuration
-DATABASE_URL="mysql:// CONNECTION STRING HERE"
+- DATABASE_URL=mysql://your_db_user:your_db_password@192.168.xxx.xxx:3306/your_db_name
 
 # Trello API
-TRELLO_API_KEY="TRELLO API KEY HERE"
-TRELLO_API_TOKEN="TRELLO API TOKEN HERE"
+- TRELLO_KEY=your_trello_key
+- TRELLO_TOKEN=your_trello_token
+```
+
+## Running with Docker
+
+```ps1
+docker compose -f docker-compose-dev.yml up --build
+```
+
+or,
+
+```ps1
+just docker-dev
 ```
 
 ## Configure the project (if necessary)
