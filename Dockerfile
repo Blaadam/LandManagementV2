@@ -26,7 +26,6 @@ RUN npm prune --production
 # Runtime stage
 FROM node:20-slim AS runner
 WORKDIR /usr/src/app
-ENV NODE_ENV=production
 
 # Install OpenSSL in the runtime image so Prisma can detect libssl/opnessl at runtime.
 RUN apt-get update -y \
