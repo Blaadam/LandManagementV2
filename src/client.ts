@@ -61,7 +61,7 @@ global.ChannelIDs = {
   deadlineAnnouncements: "735894843259355294",
   landSubmissions: "1089647073852403802",
   devSupportTickets: "1433519872209322196",
-  rolesChannel: "1444400690796433408",
+  rolesChannel: "735894843259355288",
 };
 
 global.mainServer = process.env.MAIN_GUILD_ID;
