@@ -44,6 +44,7 @@ export class ModalHandler extends InteractionHandler {
     }
 
     public async run(interaction: ModalSubmitInteraction) {
+        interaction.deferReply({ flags: ["Ephemeral"] });
         const propertyFile = interaction.fields.getUploadedFiles("propertyFile", true).first();
 
         const customId = interaction.customId;
@@ -54,6 +55,7 @@ export class ModalHandler extends InteractionHandler {
 
         const submitterId = getUserIdFromString(interaction.message.content);
         if (!submitterId) {
+            await interaction.editReply({ content: "Could not extract submitter ID from message content." });
             throw new Error("Could not extract submitter ID from message content.");
         }
 
@@ -79,9 +81,8 @@ export class ModalHandler extends InteractionHandler {
             embeds: [newEmbed],
         });
 
-        return interaction.reply({
+        return interaction.editReply({
             content: `You have approved the property submission for ${landPermit}.`,
-            flags: ["Ephemeral"],
         });
     }
 }

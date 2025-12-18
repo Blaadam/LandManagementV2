@@ -3,6 +3,7 @@ import {
   EmbedBuilder,
   GuildMember,
   PermissionFlagsBits,
+  TextChannel,
   type ChatInputCommandInteraction,
 } from "discord.js";
 import { ApplyOptions } from "@sapphire/decorators";
@@ -83,6 +84,32 @@ export default class ViewHistoryCommand extends Command {
     }
 
     dmChannel.send({ embeds: [newEmbed] });
+
+    const blmChannel = interaction.client.channels.cache.get(global.ChannelIDs.blmRevokeLand) as TextChannel;
+    if (!blmChannel || !blmChannel.isTextBased()) {
+      return interaction.editReply({ content: "BLM Channel not found or is not text based." });
+    }
+
+    const landManagementRole = interaction.guild?.roles.cache.find(role => role.name === "Bureau of Land Management Leadership");
+    if (!landManagementRole) {
+      return interaction.editReply({ content: "`Bureau of Land Management Leadership` Role not found." });
+    }
+
+    const logEmbed = new EmbedBuilder()
+      .setAuthor({
+        name: interaction.user.tag,
+        iconURL:
+          interaction.user.displayAvatarURL({ extension: "png", size: 512 }),
+      })
+      .setTitle("Business Permit Revocation Logged")
+      .setDescription(
+        `${newEmbed.data.description || ""} <@&${landManagementRole.id}>`
+      )
+      .setTimestamp()
+      .setColor(global.embeds.embedColors.mgmt)
+      .setFooter(global.embeds.embedFooter);
+
+    blmChannel.send({ embeds: [logEmbed] });    
 
     return interaction.editReply({ content: `Message sent to ${user.tag} successfully!` });
   }

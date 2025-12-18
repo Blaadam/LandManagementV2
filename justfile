@@ -1,5 +1,5 @@
 default:
-    just -h
+    just --list
 
 clean:
     rm -rf ./bin

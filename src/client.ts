@@ -61,6 +61,7 @@ global.ChannelIDs = {
   landSubmissions: "1089647073852403802",
   devSupportTickets: "1433519872209322196",
   rolesChannel: "735894843259355288",
+  blmRevokeLand: "1089647073852403802",
 };
 
 global.mainServer = process.env.MAIN_GUILD_ID;
