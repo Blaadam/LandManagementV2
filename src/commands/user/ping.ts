@@ -1,6 +1,7 @@
 import { Command, ApplicationCommandRegistry } from "@sapphire/framework";
 import { type ChatInputCommandInteraction } from "discord.js";
 import { ApplyOptions } from "@sapphire/decorators";
+import * as Sentry from "@sentry/node";
 
 @ApplyOptions<Command.Options>({
   name: "ping",
@@ -19,8 +20,13 @@ export default class PingCommand extends Command {
   }
 
   public chatInputRun(interaction: ChatInputCommandInteraction) {
+    const ping = this.container.client.ws.ping;
+
+    Sentry.metrics.distribution('command.ping.latency', ping);
+
     return interaction.reply({
-      content: `Pong! \`${this.container.client.ws.ping}ms\``,
+      content: `Pong! \`${ping}ms\``,
+      flags: ["Ephemeral"]
     });
   }
 }

@@ -6,12 +6,18 @@ import {
 import { ApplyOptions } from "@sapphire/decorators";
 
 import { databaseConnection } from "../../database";
+import * as Sentry from "@sentry/node";
 const connection = new databaseConnection();
 
-async function GetManagersFromDistrict(district: string) {
+async function GetManagersFromDistrict(district: string, span?: any) {
   var table = connection.prisma.managerTable
 
   var rows = await table.findMany({ where: { District: district } });
+
+  span?.setAttribute("database.table", "managerTable");
+  span?.setAttribute("database.query", `findMany where District = ${district}`);
+  span?.setAttribute("database.result.count", rows.length);
+
 
   if (rows.length === 0) {
     return [`No managers found for district: ${district}`];
@@ -59,40 +65,56 @@ export default class ViewHistoryCommand extends Command {
 
     const district = interaction.options.getString("district", true);
 
-    try {
-
-      let managers: string[];
+    Sentry.startSpan({
+      name: "Get Managers Command",
+      op: "command.getManagers",
+    }, async (span: any) => {
       try {
-        managers = await GetManagersFromDistrict(district);
-      } catch (err) {
-        console.error("Error fetching moderation history:", err);
-        managers = ["An error occurred while fetching the moderation history."];
-      }
+        span.setAttribute("district.name", district);
+        let managers: string[];
+        try {
+          managers = await GetManagersFromDistrict(district, span);
+        } catch (err) {
+          span.setStatus("error");
+          span.setAttribute("error.message", (err as Error).message);
 
-      const newEmbed: EmbedBuilder = new EmbedBuilder()
-        .setColor(global.embeds.embedColors.mgmt)
-        .setTitle(`${district} Managers`)
-        .setTimestamp()
-        .setFooter(global.embeds.embedFooter)
-        .setDescription(managers.join("\n"));
+          console.error("Error fetching district managers:", err);
+          managers = ["An error occurred while fetching the moderation history."];
+        }
 
-      return interaction.editReply({
-        embeds: [newEmbed]
-      });
+        span.setAttribute("district.managers.list", managers.join(", "));
+        span.setAttribute("district.managers.count", managers.length);
 
-    } catch (error) {
-      console.error("Error in chatInputRun:", error);
+        const newEmbed: EmbedBuilder = new EmbedBuilder()
+          .setColor(global.embeds.embedColors.mgmt)
+          .setTitle(`${district} Managers`)
+          .setTimestamp()
+          .setFooter(global.embeds.embedFooter)
+          .setDescription(managers.join("\n"));
 
-      if (interaction.deferred || interaction.replied) {
+        span.setAttribute("command.status", "success");
+
         return interaction.editReply({
-          content: "An unexpected error occurred while processing your request.",
-          embeds: []
+          embeds: [newEmbed]
         });
-      } else {
-        return interaction.reply({
-          content: "An unexpected error occurred while processing your request.",
-        });
+
+      } catch (error) {
+        span.setStatus("error");
+        span.setAttribute("error.message", (error as Error).message);
+        span.setAttribute("command.status", "error");
+        Sentry.captureException(error);
+
+        if (interaction.deferred || interaction.replied) {
+          return interaction.editReply({
+            content: "An unexpected error occurred while processing your request.",
+            embeds: []
+          });
+        } else {
+          return interaction.reply({
+            content: "An unexpected error occurred while processing your request.",
+          });
+        }
       }
-    }
+    });
   }
 }

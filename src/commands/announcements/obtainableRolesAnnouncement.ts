@@ -8,6 +8,7 @@ import {
     type ChatInputCommandInteraction,
 } from "discord.js";
 import { ApplyOptions } from "@sapphire/decorators";
+const Sentry = require("@sentry/node");
 
 const MESSAGE_PART1 = [
     "Hello everyone,",
@@ -132,6 +133,8 @@ export default class ViewHistoryCommand extends Command {
         const channel = await interaction.client.channels.fetch(global.ChannelIDs.rolesChannel) as TextChannel;
         // channel.send({ embeds: [newEmbed], components: [row] });
         channel.send({ components: [rolesContainer], flags: MessageFlagsBitField.Flags.IsComponentsV2 });
+
+        Sentry.logger.info(`Roles announcement sent by ${interaction.user.globalName} (${interaction.user.id})`);
 
         // Client returner
         return interaction.reply({

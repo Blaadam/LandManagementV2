@@ -1,5 +1,6 @@
 import { Listener, container } from "@sapphire/framework";
 import { ActivityType, type Client } from "discord.js";
+import * as Sentry from "@sentry/node";
 
 const NODE_ENV = process.env.NODE_ENV ?? "development";
 
@@ -21,6 +22,19 @@ export class ClientReadyListener extends Listener {
       this.container.logger.info(
         `Currently in ${client.guilds.cache.size} servers: ${guilds}`
       );
+
+      const updatePingLatencyMetric = () => {
+        Sentry.metrics.distribution('client.ws.ping', this.container.client.ws.ping);
+      }
+
+      const flushSentry = () => {
+        Sentry.flush();
+      }
+
+      updatePingLatencyMetric();
+      setInterval(updatePingLatencyMetric, process.env.NODE_ENV === "development" ? 1_000 : 10_000);
+
+      setInterval(flushSentry, process.env.NODE_ENV === "development" ? 10_000 : 60_000);
     }
   }
 }
