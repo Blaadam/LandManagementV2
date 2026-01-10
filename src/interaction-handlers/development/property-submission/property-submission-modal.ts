@@ -103,7 +103,7 @@ export class ModalHandler extends InteractionHandler {
         
         if (!channel) {
             return interaction.reply({
-                content: `There was an error with your submission. Please contact a staff member.\nError: NO_CHANNEL_FOUND`,
+                content: `There was an error with your submission. Please use the bug report command if this issue persists.\nError: NO_CHANNEL_FOUND`,
                 flags: ["Ephemeral"],
             });
         }
