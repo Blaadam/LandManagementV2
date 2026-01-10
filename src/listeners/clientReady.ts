@@ -22,19 +22,22 @@ export class ClientReadyListener extends Listener {
       this.container.logger.info(
         `Currently in ${client.guilds.cache.size} servers: ${guilds}`
       );
-
-      const updatePingLatencyMetric = () => {
-        Sentry.metrics.distribution('client.ws.ping', this.container.client.ws.ping);
-      }
-
-      const flushSentry = () => {
-        Sentry.flush();
-      }
-
-      updatePingLatencyMetric();
-      setInterval(updatePingLatencyMetric, process.env.NODE_ENV === "development" ? 1_000 : 10_000);
-
-      setInterval(flushSentry, process.env.NODE_ENV === "development" ? 10_000 : 60_000);
     }
+
+    const updatePingLatencyMetric = () => {
+      const ping = this.container.client.ws.ping;
+      this.container.logger.info(`Current WebSocket ping: ${ping}ms`);
+      Sentry.metrics.distribution('client.ws.ping', ping);
+    }
+
+    const flushSentry = () => {
+      Sentry.flush();
+    }
+
+    updatePingLatencyMetric();
+    setInterval(updatePingLatencyMetric, 1_000);
+
+    setInterval(flushSentry, NODE_ENV === "development" ? 10_000 : 60_000);
+
   }
 }
