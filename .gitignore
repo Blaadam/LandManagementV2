@@ -4,4 +4,4 @@ node_modules
 *.mp3
 /generated/prisma
 
-docker-compose-*.yml
+docker-compose.*.yml

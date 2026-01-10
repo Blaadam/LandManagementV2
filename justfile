@@ -19,7 +19,7 @@ cleanrun:
     node .
 
 docker-dev:
-    docker compose -f docker-compose-dev.yml up --build
+    docker compose -f docker-compose.dev.yml up --build
 
 docker-prod:
-    docker compose -f docker-compose-prod.yml up -d
+    docker compose -f docker-compose.prod.yml up -d
