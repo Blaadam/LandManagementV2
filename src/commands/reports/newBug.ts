@@ -50,13 +50,6 @@ export default class ViewHistoryCommand extends Command {
             secondActionRow
         );
 
-        Sentry.logger.info(`Bug report modal opened by ${interaction.user.globalName} (${interaction.user.id})`, {
-            user: { id: interaction.user.id, username: interaction.user.globalName },
-            "command.name": this.name,
-            "command.status": "success",
-            "command.modal": "bug-report-modal"
-        });
-
         return await interaction.showModal(modal);
     }
 }

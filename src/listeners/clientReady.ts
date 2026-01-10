@@ -26,7 +26,7 @@ export class ClientReadyListener extends Listener {
 
     const updatePingLatencyMetric = () => {
       const ping = this.container.client.ws.ping;
-      this.container.logger.info(`Current WebSocket ping: ${ping}ms`);
+      // this.container.logger.info(`Current WebSocket ping: ${ping}ms`);
       Sentry.metrics.distribution('client.ws.ping', ping);
     }
 
