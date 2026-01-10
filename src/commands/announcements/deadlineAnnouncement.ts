@@ -89,16 +89,16 @@ export default class ViewHistoryCommand extends Command {
         channel.send({ content: "<@&1164856752181870642>", embeds: [newEmbed], components: [row] });
 
         span.setAttribute("command.status", "success");
-
         // Client returner
-        return interaction.editReply({
+        await interaction.editReply({
           content: "Deadline announcement has been sent to the channel.",
         });
+        span.end();
       }
       catch (error) {
         Sentry.captureException(error);
         span.setAttribute("command.status", "error");
-        
+
         return interaction.editReply({
           content: "There was an error while executing this command.",
         });

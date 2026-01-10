@@ -49,7 +49,7 @@ export class ModalHandler extends InteractionHandler {
 
         Sentry.captureFeedback({
             name: `${bugTitle} - Bug Report`,
-            message: `${bugDesc}\n\n*${interaction.user.tag} (${interaction.user.id})*`,
+            message: `${bugDesc}\n\n${interaction.user.tag} (${interaction.user.id})`,
         });
 
         return interaction.reply({

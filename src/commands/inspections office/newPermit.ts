@@ -79,8 +79,9 @@ export default class ViewHistoryCommand extends Command {
         }
 
         dmChannel.send(passMessage);
-
-        return interaction.editReply({ content: `Message sent to ${user.tag} successfully!` });
+        await interaction.editReply({ content: `Message sent to ${user.tag} successfully!` });
+        span.setAttribute("command.status", "success");
+        span.end();
       } catch (error) {
         Sentry.captureException(error);
         span.setAttribute("command.status", "error")

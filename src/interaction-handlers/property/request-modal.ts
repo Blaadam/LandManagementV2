@@ -315,10 +315,12 @@ export class ModalHandler extends InteractionHandler {
         span.setAttribute("submission.channel_id", channel.id);
         span.setAttribute("command.status", "success");
 
-        return interaction.reply({
+        await interaction.reply({
           content: "Your submission was received successfully!",
           flags: ["Ephemeral"],
         });
+
+        span.end();
       }
       catch (error) {
         span.setAttribute("command.status", "error");

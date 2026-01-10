@@ -94,10 +94,11 @@ export default class ViewHistoryCommand extends Command {
 
         span.setAttribute("command.status", "success");
 
-        return interaction.editReply({
+        await interaction.editReply({
           embeds: [newEmbed]
         });
 
+        span.end();
       } catch (error) {
         span.setStatus("error");
         span.setAttribute("error.message", (error as Error).message);
