@@ -126,7 +126,6 @@ export class ModalHandler extends InteractionHandler {
     Sentry.startSpan({
       name: "Property Request Modal Submission",
       op: "property.request_modal",
-      // description: `Property request modal submission from ${interaction.user.tag} (${interaction.user.id})`,
     }, async (span) => {
       try {
         span.setAttribute("user.id", interaction.user.id);

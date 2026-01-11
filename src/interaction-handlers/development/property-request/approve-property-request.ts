@@ -1,6 +1,14 @@
 import { ApplyOptions } from '@sapphire/decorators';
 import { InteractionHandler, InteractionHandlerTypes } from '@sapphire/framework';
-import { ActionRowBuilder, Embed, EmbedBuilder, FileUploadBuilder, LabelBuilder, ModalBuilder, TextDisplayBuilder, TextInputBuilder, TextInputStyle, User, type ButtonInteraction, type GuildMember } from 'discord.js';
+import {
+  Embed,
+  FileUploadBuilder,
+  LabelBuilder,
+  ModalBuilder,
+  TextDisplayBuilder,
+  User,
+  type ButtonInteraction
+} from 'discord.js';
 import { getUserIdFromString } from '../../../shared/useridFromString';
 
 @ApplyOptions({

@@ -1,6 +1,6 @@
 import { ApplyOptions } from '@sapphire/decorators';
 import { InteractionHandler, InteractionHandlerTypes } from '@sapphire/framework';
-import { ActionRowBuilder, Embed, EmbedBuilder, ModalBuilder, TextInputBuilder, TextInputStyle, User, type ButtonInteraction, type GuildMember } from 'discord.js';
+import { Embed, EmbedBuilder, User, type ButtonInteraction } from 'discord.js';
 
 @ApplyOptions({
   name: "approve-property-submission",

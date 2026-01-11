@@ -82,19 +82,6 @@ async function GetManagersFromDistrict(district: string) {
     return rows;
 }
 
-// function AutoCorrectDistrictInput(Input) {
-//     var Capitalised = Input.toUpperCase()
-
-//     if (Capitalised == "REDWOOD") { return "Redwood" }
-//     else if (Capitalised == "ARBORFIELD") { return "Arborfield" }
-//     else if (Capitalised == "PROMINENCE") { return "Prominence" }
-//     else if (Capitalised == "UNINCORPORATED") { return "Unincorporated" }
-
-//     else if (Capitalised == "FARMS") { return "Unincorporated" }
-//     else if (Capitalised == "HILLVIEW") { return "Unincorporated" }
-//     else if (Capitalised == "GREENDALE") { return "Unincorporated" }
-// }
-
 @ApplyOptions({
     name: "activity-modal",
 })

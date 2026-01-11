@@ -3,8 +3,6 @@ import {
     FileUploadBuilder,
     LabelBuilder,
     ModalBuilder,
-    StringSelectMenuBuilder,
-    StringSelectMenuOptionBuilder,
     TextDisplayBuilder,
     TextInputBuilder,
     TextInputStyle,

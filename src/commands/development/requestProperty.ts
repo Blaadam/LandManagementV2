@@ -1,12 +1,7 @@
 import { Command, ApplicationCommandRegistry } from "@sapphire/framework";
 import {
-    FileUploadBuilder,
     LabelBuilder,
     ModalBuilder,
-    PermissionFlagsBits,
-    StringSelectMenuBuilder,
-    StringSelectMenuOptionBuilder,
-    TextDisplayBuilder,
     TextInputBuilder,
     TextInputStyle,
     type ChatInputCommandInteraction,

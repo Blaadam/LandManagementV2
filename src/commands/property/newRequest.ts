@@ -1,6 +1,5 @@
 import { Command, ApplicationCommandRegistry } from "@sapphire/framework";
 import {
-    ActionRowBuilder,
     LabelBuilder,
     ModalBuilder,
     TextInputBuilder,

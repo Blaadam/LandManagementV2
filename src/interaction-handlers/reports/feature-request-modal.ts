@@ -3,7 +3,6 @@ import {
     InteractionHandlerTypes,
 } from "@sapphire/framework";
 import {
-    EmbedBuilder,
     type ModalSubmitInteraction,
 } from "discord.js";
 import "dotenv";

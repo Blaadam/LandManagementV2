@@ -1,6 +1,6 @@
 import { ApplyOptions } from '@sapphire/decorators';
 import { InteractionHandler, InteractionHandlerTypes } from '@sapphire/framework';
-import { ActionRowBuilder, LabelBuilder, ModalBuilder, TextInputBuilder, TextInputStyle, type ButtonInteraction, type GuildMember } from 'discord.js';
+import {  LabelBuilder, ModalBuilder, TextInputBuilder, TextInputStyle, type ButtonInteraction } from 'discord.js';
 
 @ApplyOptions({
     name: "activity-button",

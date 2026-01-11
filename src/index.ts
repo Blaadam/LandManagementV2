@@ -1,7 +1,6 @@
 import Client from "./client";
 require("dotenv").config();
 require("./instrument");
-import * as Sentry from "@sentry/node";
 
 import { databaseConnection } from "./database";
 const connection = new databaseConnection();
@@ -40,22 +39,3 @@ process.on('uncaughtException', (err) => {
     cleanup();
     process.exit(1);
 });
-
-// TODO:
-// SENTRY TESTING CODE - DO NOT DELETE YET
-
-// function foo() {
-//     throw new Error("Test Sentry error");
-// }
-
-// // Sentry.captureMessage("Hello from Commerce Service Desk!");
-
-// setTimeout(() => {
-//     // foo();
-//       try {
-//         foo();
-//       } catch (e) {
-//         Sentry.captureException(e);
-//         console.log("Exception captured");
-//       }
-// }, 99);
