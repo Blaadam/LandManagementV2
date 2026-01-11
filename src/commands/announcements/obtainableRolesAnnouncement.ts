@@ -134,7 +134,7 @@ export default class ViewHistoryCommand extends Command {
         // channel.send({ embeds: [newEmbed], components: [row] });
         channel.send({ components: [rolesContainer], flags: MessageFlagsBitField.Flags.IsComponentsV2 });
 
-        Sentry.logger.info(`Roles announcement sent by ${interaction.user.globalName} (${interaction.user.id})`);
+        // Sentry.logger.info(`Roles announcement sent by ${interaction.user.globalName} (${interaction.user.id})`);
 
         // Client returner
         return interaction.reply({

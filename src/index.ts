@@ -1,6 +1,7 @@
 import Client from "./client";
 require("dotenv").config();
 require("./instrument");
+import * as Sentry from "@sentry/node";
 
 import { databaseConnection } from "./database";
 const connection = new databaseConnection();
@@ -31,6 +32,7 @@ start();
 
 function cleanup() {
     connection.cleanup();
+    Sentry.flush(1_000)
 }
 
 process.on("exit", cleanup);
