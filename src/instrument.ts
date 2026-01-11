@@ -12,6 +12,7 @@ Sentry.init({
     },
 
   dsn: process.env.SENTRY_DSN || "",
+  environment: process.env.NODE_ENV || "development",
 
   integrations: [
     // send console.log, console.warn, and console.error calls as logs to Sentry

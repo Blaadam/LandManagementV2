@@ -1,7 +1,9 @@
 import { Command, ApplicationCommandRegistry } from "@sapphire/framework";
 import {
     ActionRowBuilder,
+    LabelBuilder,
     ModalBuilder,
+    TextDisplayBuilder,
     TextInputBuilder,
     TextInputStyle,
     type ChatInputCommandInteraction,
@@ -30,26 +32,29 @@ export default class ViewHistoryCommand extends Command {
             .setCustomId("bug-report-modal")
             .setTitle("Bug Report Submission");
 
-        const bugTitle = new TextInputBuilder()
-            .setCustomId("bugTitle")
+        const textDisplayLabel = new TextDisplayBuilder()
+            .setContent("This modal is used to receive feedback for bug fixes. Please provide as much detail as possible to help us understand your report.");
+
+        const titleLabel = new LabelBuilder()
             .setLabel("Bug Title")
-            .setPlaceholder("Enter the title of the bug")
-            .setStyle(TextInputStyle.Short);
+            .setTextInputComponent(
+                new TextInputBuilder()
+                    .setCustomId("bugTitle")
+                    .setPlaceholder("Enter the title of the bug")
+                    .setStyle(TextInputStyle.Short)
+            );
 
-        const bugDesc = new TextInputBuilder()
-            .setCustomId("bugDesc")
+        const descLabel = new LabelBuilder()
             .setLabel("Bug Description")
-            .setPlaceholder("Enter a description of the bug")
-            .setStyle(TextInputStyle.Paragraph);
+            .setTextInputComponent(
+                new TextInputBuilder()
+                    .setCustomId("bugDesc")
+                    .setPlaceholder("Enter a description of the bug, including steps to reproduce it")
+                    .setStyle(TextInputStyle.Paragraph)
+            );
 
-        const firstActionRow = new ActionRowBuilder<TextInputBuilder>().addComponents(bugTitle);
-        const secondActionRow = new ActionRowBuilder<TextInputBuilder>().addComponents(bugDesc);
-
-        modal.addComponents(
-            firstActionRow,
-            secondActionRow
-        );
-
+        modal.addTextDisplayComponents(textDisplayLabel);
+        modal.addLabelComponents(titleLabel, descLabel);
         return await interaction.showModal(modal);
     }
 }

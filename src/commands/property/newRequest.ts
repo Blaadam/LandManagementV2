@@ -1,6 +1,7 @@
 import { Command, ApplicationCommandRegistry } from "@sapphire/framework";
 import {
     ActionRowBuilder,
+    LabelBuilder,
     ModalBuilder,
     TextInputBuilder,
     TextInputStyle,
@@ -29,49 +30,58 @@ export default class ViewHistoryCommand extends Command {
       .setCustomId("request-modal")
       .setTitle("New Property");
 
-    const businessPermit = new TextInputBuilder()
-      .setCustomId("businessPermit")
+    const permitLabel = new LabelBuilder()
       .setLabel("Business Permit")
-      .setPlaceholder("https://trello.com/b/r4a8Tw1I/commerce-permit-database")
-      .setStyle(TextInputStyle.Short);
+      .setTextInputComponent(
+        new TextInputBuilder()
+          .setCustomId("businessPermit")
+          .setPlaceholder("https://trello.com/b/r4a8Tw1I/commerce-permit-database")
+          .setStyle(TextInputStyle.Short)
+      );
 
-    const businessGroup = new TextInputBuilder()
-      .setCustomId("businessGroup")
+    const businessGroupLabel = new LabelBuilder()
       .setLabel("Business Group")
-      .setPlaceholder("Firestone Department of Commerce")
-      .setStyle(TextInputStyle.Short);
+      .setTextInputComponent(
+        new TextInputBuilder()
+          .setCustomId("businessGroup")
+          .setPlaceholder("Firestone Department of Commerce")
+          .setStyle(TextInputStyle.Short)
+      );
 
-    const propertiesBefore = new TextInputBuilder()
-      .setCustomId("propertiesBefore")
+    const propertiesBeforeLabel = new LabelBuilder()
       .setLabel("Will this be your first or second property?")
-      .setPlaceholder("[FIRST / SECOND]")
-      .setStyle(TextInputStyle.Paragraph);
+      .setTextInputComponent(
+        new TextInputBuilder()
+          .setCustomId("propertiesBefore")
+          .setPlaceholder("[FIRST / SECOND]")
+          .setStyle(TextInputStyle.Paragraph)
+      );
 
-    const requestedLand = new TextInputBuilder()
-      .setCustomId("requestedLand")
+    const requestedLandLabel = new LabelBuilder()
       .setLabel("What property would you like to request")
-      .setPlaceholder("[LINK]")
-      .setStyle(TextInputStyle.Short);
+      .setTextInputComponent(
+        new TextInputBuilder()
+          .setCustomId("requestedLand")
+          .setPlaceholder("[LINK]")
+          .setStyle(TextInputStyle.Short)
+      );
 
-    const propertyUse = new TextInputBuilder()
-      .setCustomId("propertyUse")
+    const propertyUseLabel = new LabelBuilder()
       .setLabel("How will your property be used?")
-      .setStyle(TextInputStyle.Paragraph);
+      .setTextInputComponent(
+        new TextInputBuilder()
+          .setCustomId("propertyUse")
+          .setStyle(TextInputStyle.Paragraph)
+      );
 
-    const firstActionRow = new ActionRowBuilder<TextInputBuilder>().addComponents(businessPermit);
-    const secondActionRow = new ActionRowBuilder<TextInputBuilder>().addComponents(businessGroup);
-    const thirdActionRow = new ActionRowBuilder<TextInputBuilder>().addComponents(propertiesBefore);
-    const fourthActionRow = new ActionRowBuilder<TextInputBuilder>().addComponents(requestedLand);
-    const fifthActionRow = new ActionRowBuilder<TextInputBuilder>().addComponents(propertyUse);
-
-    // Add inputs to the modal
-    modal.addComponents(
-      firstActionRow,
-      secondActionRow,
-      thirdActionRow,
-      fourthActionRow,
-      fifthActionRow
+    modal.addLabelComponents(
+      permitLabel,
+      businessGroupLabel,
+      propertiesBeforeLabel,
+      requestedLandLabel,
+      propertyUseLabel
     );
+    
     return await interaction.showModal(modal);
   }
 }

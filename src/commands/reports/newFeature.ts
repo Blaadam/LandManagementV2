@@ -1,7 +1,9 @@
 import { Command, ApplicationCommandRegistry } from "@sapphire/framework";
 import {
     ActionRowBuilder,
+    LabelBuilder,
     ModalBuilder,
+    TextDisplayBuilder,
     TextInputBuilder,
     TextInputStyle,
     type ChatInputCommandInteraction,
@@ -30,25 +32,29 @@ export default class ViewHistoryCommand extends Command {
             .setCustomId("feature-request-modal")
             .setTitle("Feature Request Submission");
 
-        const featureTitle = new TextInputBuilder()
-            .setCustomId("featureTitle")
+        const textDisplayLabel = new TextDisplayBuilder()
+            .setContent("This modal is used to receive feedback for new features. Please provide as much detail as possible to help us understand your request.");
+
+        const titleLabel = new LabelBuilder()
             .setLabel("Feature Title")
-            .setPlaceholder("Enter the title of the feature")
-            .setStyle(TextInputStyle.Short);
+            .setTextInputComponent(
+                new TextInputBuilder()
+                    .setCustomId("featureTitle")
+                    .setPlaceholder("Enter the title of the feature")
+                    .setStyle(TextInputStyle.Short)
+            );
 
-        const featureDesc = new TextInputBuilder()
-            .setCustomId("featureDesc")
+        const descLabel = new LabelBuilder()
             .setLabel("Feature Description")
-            .setPlaceholder("Enter a description of the feature, including use cases and how it would work")
-            .setStyle(TextInputStyle.Paragraph);
+            .setTextInputComponent(
+                new TextInputBuilder()
+                    .setCustomId("featureDesc")
+                    .setPlaceholder("Enter a description of the feature, including use cases and how it would work")
+                    .setStyle(TextInputStyle.Paragraph)
+            );
 
-        const firstActionRow = new ActionRowBuilder<TextInputBuilder>().addComponents(featureTitle);
-        const secondActionRow = new ActionRowBuilder<TextInputBuilder>().addComponents(featureDesc);
-
-        modal.addComponents(
-            firstActionRow,
-            secondActionRow
-        );
+        modal.addTextDisplayComponents(textDisplayLabel);
+        modal.addLabelComponents(titleLabel, descLabel);
 
         return await interaction.showModal(modal);
     }
